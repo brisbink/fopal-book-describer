@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .checkboxes { float:left; padding: 10px; }
+    </style>
+    <script>
+      function toggleDiv(divId) {
+        var div = document.getElementById(divId);
+        if (div.style.display === "none") {
+          div.style.display = "block";
+        } else {
+          div.style.display = "none";
+        }
+      }
+      function handleChange(checkbox) {
+        var coverIds = [
+          "cover-stains",
+          "cover-bumped",
+          "cover-shelf-wear",
+          "cover-faded",
+          "cover-illegible",
+          "cover-water"
+        ];
+        document.getElementById("text-for-ebay").innerHTML = "";
+        var coverText = "";
+        for(var i = 0; i < coverIds.length; i++) {
+          var checkboxElement = document.getElementById(coverIds[i]);
+          if(checkboxElement.checked == true) {
+            coverText += (checkboxElement.value + ", ")
+          }
+        }
+        if(coverText != "") { coverText = "Cover shows signs of age: " + coverText; }
+        document.getElementById("text-for-ebay").innerHTML = coverText;
+      }
+    </script>
+  </head>
+  <body>
+    <img src="https://docs.google.com/drawings/d/e/2PACX-1vSvCjYY6BFY1CjLAJqtLqCR-hik7UETyDTsOA6276gqnD3e0pS_C0LH2W_NANwxMgnq7B-yPT0aYZ1v/pub?w=480&h=347" style="display:block;">
+    <div id="cover" class="checkboxes">
+      <h2>Cover</h2>
+      <input type="checkbox" id="cover-stains" name="cover-stains" value="stains or marks" onchange="handleChange(this);">
+      <label for="cover-stains"> stains or marks</label><br>
+      <input type="checkbox" id="cover-bumped" name="cover-bumped" value="corners or edges are bumped/bent" onchange="handleChange(this);">
+      <label for="cover-bumped"> corners or edges are bumped/bent</label><br>
+      <input type="checkbox" id="cover-shelf-wear" name="cover-shelf-wear" value="shows shelf wear or scratches" onchange="handleChange(this);">
+      <label for="vehicle3"> shows shelf wear or scratches</label><br>
+      <input type="checkbox" id="cover-faded" name="cover-faded" value="faded or sunned" onchange="handleChange(this);">
+      <label for="vehicle3"> faded or “sunned”</label><br>
+      <input type="checkbox" id="cover-illegible" name="cover-illegible" value="illegible title" onchange="handleChange(this);">
+      <label for="vehicle3"> illegible title</label><br>
+      <input type="checkbox" id="cover-water" name="cover-water" value="water damaged" onchange="handleChange(this);">
+      <label for="vehicle3"> water damaged</label><br>
+    </div>
+    <div id="dust-jacket" class="checkboxes">
+      <h2>Dust Jacket</h2>
+    </div>
+    <div id="text-for-ebay" style="clear: both;display:block;"></div>
+<!--
+For the cover –
+Negative: has stains or marks, corners or edges are bumped/bent, shows shelf wear or scratches, faded or “sunned”, illegible title, water damaged
+Positive: has an embossed or illustrated cover, gilt title, leather bound -full or quarter
+The dust jacket – paper jacket that fits over the paper, plastic, or hardback covers
+Negative: missing (if the book was published with one), torn (chipped), illegible, etc.
+Positive: exists and is in good condition. NOTE: The existence of a dust jacket for some books can be worth more than the book alone.
+The spine –
+Negative: is torn or missing, the title is illegible, the top or bottom is bumped/crushed, the joint is cracked (separated from the main cover or covers
+Positive: is leather bound, is embossed, the title is in gilt, has raised bands (covered raised bands that stand away from the rest of the spine)
+The end papers – (just inside front and back cover boards)
+Negative: contains writing, marks, former library stamps or card pockets, stained, former owner’s name in ink, old price stickers
+Positive: Illustrated, contains map pocket with map intact
+The hinge – (inside between the paste-down end paper and the first fly leaf) 
+Negative: If cracked or loose, this means that the cover is partially or fully separated from the text block. If you find this, check the book carefully to see if any pages inside the text block are also loose or missing. Particularly note older paperback books (and some inexpensively produced hardbacks) that have used glue or staples instead of stitching to bind the pages together. Glue and staples will give way over time and the pages will come loose.
+Positive: tight with no separation
+The binding (hardbacks) – usually the cloth, or leather used to connect the cover boards 
+Negative: Cocked (when book is standing on its base is it skewed or does it sit at right angles); cracked, on the outside, with the cover boards unhinged or completely separated, frayed edges, stained, sun-damaged (faded)
+Positive: Tight and square (the book is not slanted from pressure)
+The title page – are there marks? Is there an author’s signature? (These can also be noted or found on the end papers, or the fly leaf(s).
+The copyright page –behind the title page-- this is where we carefully check the edition of the book to find a comparable book to get pricing. This is also where you will find the ISBN number (if it exists), although you can sometimes find the ISBN* with its barcode on the back cover. Books printed before 1970 do not have ISBN numbers. 
+The pages inside (the text block)
+Maps and Illustrations: Note these in your description of the book, especially if the illustrator is well known, or if there are special fold-out maps either bound in with the text or in special map pockets on either the front or back covers. Sometimes maps are removed from books, so a buyer may want to be assured that the map or maps are there. Include the dimensions!
+-->
+  </body>
+</html>

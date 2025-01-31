@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,25 +14,49 @@
           div.style.display = "none";
         }
       }
-      function handleChange(checkbox) {
-        var coverIds = [
-          "cover-stains",
-          "cover-bumped",
-          "cover-shelf-wear",
-          "cover-faded",
-          "cover-illegible",
-          "cover-water"
-        ];
-        document.getElementById("text-for-ebay").innerHTML = "";
-        var coverText = "";
-        for(var i = 0; i < coverIds.length; i++) {
-          var checkboxElement = document.getElementById(coverIds[i]);
+      function status(ids, bookPart) {
+        var text = "";
+        for(var i = 0; i < ids.length; i++) {
+          var checkboxElement = document.getElementById(ids[i]);
           if(checkboxElement.checked == true) {
-            coverText += (checkboxElement.value + ", ")
+            text += (checkboxElement.value + ", ")
           }
         }
-        if(coverText != "") { coverText = "Cover shows signs of age: " + coverText; }
-        document.getElementById("text-for-ebay").innerHTML = coverText;
+        if(text != "") {
+          text = bookPart + " shows signs of age: " + text;
+        }
+        return text;
+      }
+      function handleChange(checkbox) {
+        document.getElementById("text-for-ebay").innerHTML = "";
+        var coverText = status(
+          [
+            "cover-stains",
+            "cover-bumped",
+            "cover-shelf-wear",
+            "cover-faded",
+            "cover-illegible",
+            "cover-water"
+          ], "Cover");
+        var djText = status(
+          [
+            "dj-missing",
+            "dj-torn",
+            "dj-illegible"
+          ], "Dust Jacket");
+        var spineText = status(
+          [
+            "spine-missing",
+            "spine-illegible",
+            "spine-bumped",
+            "spine-cracked"
+          ], "Spine");
+        document.getElementById("text-for-ebay").innerHTML =
+          coverText +
+          " " +
+          djText +
+          " " +
+          spineText;
       }
     </script>
   </head>
@@ -44,28 +69,48 @@
       <input type="checkbox" id="cover-bumped" name="cover-bumped" value="corners or edges are bumped/bent" onchange="handleChange(this);">
       <label for="cover-bumped"> corners or edges are bumped/bent</label><br>
       <input type="checkbox" id="cover-shelf-wear" name="cover-shelf-wear" value="shows shelf wear or scratches" onchange="handleChange(this);">
-      <label for="vehicle3"> shows shelf wear or scratches</label><br>
+      <label for="cover-shelf-wear"> shows shelf wear or scratches</label><br>
       <input type="checkbox" id="cover-faded" name="cover-faded" value="faded or sunned" onchange="handleChange(this);">
-      <label for="vehicle3"> faded or “sunned”</label><br>
+      <label for="cover-faded"> faded or “sunned”</label><br>
       <input type="checkbox" id="cover-illegible" name="cover-illegible" value="illegible title" onchange="handleChange(this);">
-      <label for="vehicle3"> illegible title</label><br>
+      <label for="cover-illegible"> illegible title</label><br>
       <input type="checkbox" id="cover-water" name="cover-water" value="water damaged" onchange="handleChange(this);">
-      <label for="vehicle3"> water damaged</label><br>
+      <label for="cover-water"> water damaged</label><br>
     </div>
     <div id="dust-jacket" class="checkboxes">
       <h2>Dust Jacket</h2>
+      <input type="checkbox" id="dj-missing" name="dj-missing" value="missing" onchange="handleChange(this);">
+      <label for="dj-missing"> dust jacket is missing</label><br>
+      <input type="checkbox" id="dj-torn" name="dj-torn" value="torn/chipped" onchange="handleChange(this);">
+      <label for="dj-torn"> torn or chipped</label><br>
+      <input type="checkbox" id="dj-illegible" name="dj-illegible" value="illegible" onchange="handleChange(this);">
+      <label for="dj-illegible"> illegible</label>
+    </div>
+    <div id="spine" class="checkboxes">
+      <h2>Spine</h2>
+      <input type="checkbox" id="spine-missing" name="spine-missing" value="torn or missing" onchange="handleChange(this);">
+      <label for="spine-missing"> is torn or missing</label><br>
+      <input type="checkbox" id="spine-illegible" name="spine-illegible" value="illegible" onchange="handleChange(this);">
+      <label for="spine-illegible"> the title is illegible</label><br>
+      <input type="checkbox" id="spine-bumped" name="spine-bumped" value="top or bottom is bumped/crushed" onchange="handleChange(this);">
+      <label for="spine-bumped"> the top or bottom is bumped/crushed</label><br>
+      <input type="checkbox" id="spine-cracked" name="spine-cracked" value="joint is cracked" onchange="handleChange(this);">
+      <label for="spine-cracked"> the joint is cracked (ie, separated from the main cover)</label>
     </div>
     <div id="text-for-ebay" style="clear: both;display:block;"></div>
 <!--
 For the cover –
 Negative: has stains or marks, corners or edges are bumped/bent, shows shelf wear or scratches, faded or “sunned”, illegible title, water damaged
 Positive: has an embossed or illustrated cover, gilt title, leather bound -full or quarter
+
 The dust jacket – paper jacket that fits over the paper, plastic, or hardback covers
 Negative: missing (if the book was published with one), torn (chipped), illegible, etc.
 Positive: exists and is in good condition. NOTE: The existence of a dust jacket for some books can be worth more than the book alone.
+
 The spine –
 Negative: is torn or missing, the title is illegible, the top or bottom is bumped/crushed, the joint is cracked (separated from the main cover or covers
 Positive: is leather bound, is embossed, the title is in gilt, has raised bands (covered raised bands that stand away from the rest of the spine)
+
 The end papers – (just inside front and back cover boards)
 Negative: contains writing, marks, former library stamps or card pockets, stained, former owner’s name in ink, old price stickers
 Positive: Illustrated, contains map pocket with map intact

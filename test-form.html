@@ -3,7 +3,22 @@
 <html>
   <head>
     <style>
-      .checkboxes { float:left; padding: 10px; }
+      body { font-family: Arial; }
+      #content {
+        width: 1200px;
+        margin: 0px auto 0px auto;
+      }
+      .checkboxes {
+        float: left;
+        padding: 10px;
+        width: 350px;
+      }
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
     </style>
     <script>
       function toggleDiv(divId) {
@@ -23,7 +38,7 @@
           }
         }
         if(text != "") {
-          text = bookPart + " shows signs of age: " + text;
+          text = bookPart + ": " + text + " ";
         }
         return text;
       }
@@ -31,6 +46,9 @@
         document.getElementById("text-for-ebay").innerHTML = "";
         var coverText = status(
           [
+            "cover-embossed",
+            "cover-gilt",
+            "cover-leather",
             "cover-stains",
             "cover-bumped",
             "cover-shelf-wear",
@@ -40,90 +58,262 @@
           ], "Cover");
         var djText = status(
           [
+            "dj-exists",
             "dj-missing",
             "dj-torn",
             "dj-illegible"
           ], "Dust Jacket");
         var spineText = status(
           [
+            "spine-leather",
+            "spine-embossed",
+            "spine-gilt",
+            "spine-bands",
             "spine-missing",
             "spine-illegible",
             "spine-bumped",
             "spine-cracked"
           ], "Spine");
-        document.getElementById("text-for-ebay").innerHTML =
+        var endPapersText = status(
+          [
+            "end-papers-illustrated",
+            "end-papers-map",
+            "end-papers-writing",
+            "end-papers-library",
+            "end-papers-stained",
+            "end-papers-owner-name",
+            "end-papers-price"
+          ], "End Papers");
+        var hingeText = status(
+          [
+            "hinge-tight",
+            "hinge-cracked",
+            "hinge-glue"
+          ], "Hinge");
+        var bindingText = status(
+          [
+            "binding-tight",
+            "binding-cocked",
+            "binding-cracked",
+            "binding-unhinged",
+            "binding-frayed",
+            "binding-stained",
+            "binding-sun-damaged"
+          ], "Binding");
+        var fullText =
           coverText +
-          " " +
           djText +
-          " " +
-          spineText;
+          spineText +
+          endPapersText +
+          hingeText +
+          bindingText;
+        if(fullText == "") {
+          fullText = "<i>eBay Description Text will go here.</i>";
+        }
+        document.getElementById("text-for-ebay").innerHTML = fullText;
+      }
+      function copyText() {
+        // Get the text field
+        var copyText = document.getElementById("text-for-ebay").innerHTML;
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText);
       }
     </script>
   </head>
   <body>
-    <img src="https://docs.google.com/drawings/d/e/2PACX-1vSvCjYY6BFY1CjLAJqtLqCR-hik7UETyDTsOA6276gqnD3e0pS_C0LH2W_NANwxMgnq7B-yPT0aYZ1v/pub?w=480&h=347" style="display:block;">
-    <div id="cover" class="checkboxes">
-      <h2>Cover</h2>
-      <input type="checkbox" id="cover-stains" name="cover-stains" value="stains or marks" onchange="handleChange(this);">
-      <label for="cover-stains"> stains or marks</label><br>
-      <input type="checkbox" id="cover-bumped" name="cover-bumped" value="corners or edges are bumped/bent" onchange="handleChange(this);">
-      <label for="cover-bumped"> corners or edges are bumped/bent</label><br>
-      <input type="checkbox" id="cover-shelf-wear" name="cover-shelf-wear" value="shows shelf wear or scratches" onchange="handleChange(this);">
-      <label for="cover-shelf-wear"> shows shelf wear or scratches</label><br>
-      <input type="checkbox" id="cover-faded" name="cover-faded" value="faded or sunned" onchange="handleChange(this);">
-      <label for="cover-faded"> faded or “sunned”</label><br>
-      <input type="checkbox" id="cover-illegible" name="cover-illegible" value="illegible title" onchange="handleChange(this);">
-      <label for="cover-illegible"> illegible title</label><br>
-      <input type="checkbox" id="cover-water" name="cover-water" value="water damaged" onchange="handleChange(this);">
-      <label for="cover-water"> water damaged</label><br>
-    </div>
-    <div id="dust-jacket" class="checkboxes">
-      <h2>Dust Jacket</h2>
-      <input type="checkbox" id="dj-missing" name="dj-missing" value="missing" onchange="handleChange(this);">
-      <label for="dj-missing"> dust jacket is missing</label><br>
-      <input type="checkbox" id="dj-torn" name="dj-torn" value="torn/chipped" onchange="handleChange(this);">
-      <label for="dj-torn"> torn or chipped</label><br>
-      <input type="checkbox" id="dj-illegible" name="dj-illegible" value="illegible" onchange="handleChange(this);">
-      <label for="dj-illegible"> illegible</label>
-    </div>
-    <div id="spine" class="checkboxes">
-      <h2>Spine</h2>
-      <input type="checkbox" id="spine-missing" name="spine-missing" value="torn or missing" onchange="handleChange(this);">
-      <label for="spine-missing"> is torn or missing</label><br>
-      <input type="checkbox" id="spine-illegible" name="spine-illegible" value="illegible" onchange="handleChange(this);">
-      <label for="spine-illegible"> the title is illegible</label><br>
-      <input type="checkbox" id="spine-bumped" name="spine-bumped" value="top or bottom is bumped/crushed" onchange="handleChange(this);">
-      <label for="spine-bumped"> the top or bottom is bumped/crushed</label><br>
-      <input type="checkbox" id="spine-cracked" name="spine-cracked" value="joint is cracked" onchange="handleChange(this);">
-      <label for="spine-cracked"> the joint is cracked (ie, separated from the main cover)</label>
-    </div>
-    <div id="text-for-ebay" style="clear: both;display:block;"></div>
-<!--
-For the cover –
-Negative: has stains or marks, corners or edges are bumped/bent, shows shelf wear or scratches, faded or “sunned”, illegible title, water damaged
-Positive: has an embossed or illustrated cover, gilt title, leather bound -full or quarter
+    <div id="content">
 
-The dust jacket – paper jacket that fits over the paper, plastic, or hardback covers
-Negative: missing (if the book was published with one), torn (chipped), illegible, etc.
-Positive: exists and is in good condition. NOTE: The existence of a dust jacket for some books can be worth more than the book alone.
+      <table>
+        <tr>
+          <td>
+            <img
+              src="https://docs.google.com/drawings/d/e/2PACX-1vSvCjYY6BFY1CjLAJqtLqCR-hik7UETyDTsOA6276gqnD3e0pS_C0LH2W_NANwxMgnq7B-yPT0aYZ1v/pub?w=480&h=347" />
+          </td>
+          <td valign="top" style="padding: 10px">
+            <button onclick="copyText();">Copy text to clipboard</button>
+            <br>
+            <div id="text-for-ebay" style="margin-top: 5px"><i>eBay Description Text will go here.</i></div>
+          </td>
+        </tr>
+      </table>
 
-The spine –
-Negative: is torn or missing, the title is illegible, the top or bottom is bumped/crushed, the joint is cracked (separated from the main cover or covers
-Positive: is leather bound, is embossed, the title is in gilt, has raised bands (covered raised bands that stand away from the rest of the spine)
+      <br style="clear: both;" />
 
-The end papers – (just inside front and back cover boards)
-Negative: contains writing, marks, former library stamps or card pockets, stained, former owner’s name in ink, old price stickers
-Positive: Illustrated, contains map pocket with map intact
-The hinge – (inside between the paste-down end paper and the first fly leaf) 
-Negative: If cracked or loose, this means that the cover is partially or fully separated from the text block. If you find this, check the book carefully to see if any pages inside the text block are also loose or missing. Particularly note older paperback books (and some inexpensively produced hardbacks) that have used glue or staples instead of stitching to bind the pages together. Glue and staples will give way over time and the pages will come loose.
-Positive: tight with no separation
-The binding (hardbacks) – usually the cloth, or leather used to connect the cover boards 
-Negative: Cocked (when book is standing on its base is it skewed or does it sit at right angles); cracked, on the outside, with the cover boards unhinged or completely separated, frayed edges, stained, sun-damaged (faded)
-Positive: Tight and square (the book is not slanted from pressure)
-The title page – are there marks? Is there an author’s signature? (These can also be noted or found on the end papers, or the fly leaf(s).
-The copyright page –behind the title page-- this is where we carefully check the edition of the book to find a comparable book to get pricing. This is also where you will find the ISBN number (if it exists), although you can sometimes find the ISBN* with its barcode on the back cover. Books printed before 1970 do not have ISBN numbers. 
-The pages inside (the text block)
-Maps and Illustrations: Note these in your description of the book, especially if the illustrator is well known, or if there are special fold-out maps either bound in with the text or in special map pockets on either the front or back covers. Sometimes maps are removed from books, so a buyer may want to be assured that the map or maps are there. Include the dimensions!
--->
+      <div id="cover" class="checkboxes">
+        <!--
+          The cover –
+          Negative: has stains or marks, corners or edges are bumped/bent, shows shelf wear or scratches, faded or “sunned”,
+          illegible title, water damaged
+          Positive: has an embossed or illustrated cover, gilt title, leather bound - full or quarter
+        -->
+        <h2>Cover</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="cover-embossed" name="cover-embossed" value="embossed or illustrated cover" onchange="handleChange(this);">
+        <label for="cover-embossed"> embossed or illustrated cover</label><br>
+        <input type="checkbox" id="cover-gilt" name="cover-gilt" value="gilt title" onchange="handleChange(this);">
+        <label for="cover-gilt"> gilt title</label><br>
+        <input type="checkbox" id="cover-leather" name="cover-leather" value="leather bound (full or quarter)" onchange="handleChange(this);">
+        <label for="cover-leather"> leather bound (full or quarter)</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="cover-stains" name="cover-stains" value="stains or marks" onchange="handleChange(this);">
+        <label for="cover-stains"> stains or marks</label><br>
+        <input type="checkbox" id="cover-bumped" name="cover-bumped" value="corners or edges are bumped/bent" onchange="handleChange(this);">
+        <label for="cover-bumped"> corners or edges are bumped/bent</label><br>
+        <input type="checkbox" id="cover-shelf-wear" name="cover-shelf-wear" value="shows shelf wear or scratches" onchange="handleChange(this);">
+        <label for="cover-shelf-wear"> shows shelf wear or scratches</label><br>
+        <input type="checkbox" id="cover-faded" name="cover-faded" value="faded or sunned" onchange="handleChange(this);">
+        <label for="cover-faded"> faded or “sunned”</label><br>
+        <input type="checkbox" id="cover-illegible" name="cover-illegible" value="illegible title" onchange="handleChange(this);">
+        <label for="cover-illegible"> illegible title</label><br>
+        <input type="checkbox" id="cover-water" name="cover-water" value="water damaged" onchange="handleChange(this);">
+        <label for="cover-water"> water damaged</label><br>
+      </div>
+
+      <div id="dust-jacket" class="checkboxes">
+        <!--
+          The dust jacket – paper jacket that fits over the paper, plastic, or hardback covers
+          Negative: missing (if the book was published with one), torn (chipped), illegible, etc.
+          Positive: exists and is in good condition. NOTE: The existence of a dust jacket for some books can be worth
+          more than the book alone.
+        -->
+        <h2>Dust Jacket</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="dj-exists" name="dj-exists" value="exists and is in good condition" onchange="handleChange(this);">
+        <label for="dj-exists"> exists and is in good condition</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="dj-missing" name="dj-missing" value="missing" onchange="handleChange(this);">
+        <label for="dj-missing"> dust jacket is missing</label><br>
+        <input type="checkbox" id="dj-torn" name="dj-torn" value="torn or chipped" onchange="handleChange(this);">
+        <label for="dj-torn"> torn or chipped</label><br>
+        <input type="checkbox" id="dj-illegible" name="dj-illegible" value="illegible" onchange="handleChange(this);">
+        <label for="dj-illegible"> illegible</label>
+      </div>
+
+      <div id="spine" class="checkboxes">
+        <!--
+          The spine –
+          Negative: is torn or missing, the title is illegible, the top or bottom is bumped/crushed, the
+          joint is cracked (separated from the main cover or covers
+          Positive: is leather bound, is embossed, the title is in gilt, has raised bands (covered raised bands
+          that stand away from the rest of the spine)
+        -->
+        <h2>Spine</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="spine-leather" name="spine-leather" value="is leather bound" onchange="handleChange(this);">
+        <label for="spine-leather"> is leather bound</label><br>
+        <input type="checkbox" id="spine-embossed" name="spine-embossed" value="is embossed" onchange="handleChange(this);">
+        <label for="spine-embossed"> is embossed</label><br>
+        <input type="checkbox" id="spine-gilt" name="spine-gilt" value="title is in gilt" onchange="handleChange(this);">
+        <label for="spine-gilt"> title is in gilt</label><br>
+        <input type="checkbox" id="spine-bands" name="spine-bands" value="has raised bands" onchange="handleChange(this);">
+        <label for="spine-bands"> has raised bands</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="spine-missing" name="spine-missing" value="torn or missing" onchange="handleChange(this);">
+        <label for="spine-missing"> is torn or missing</label><br>
+        <input type="checkbox" id="spine-illegible" name="spine-illegible" value="illegible" onchange="handleChange(this);">
+        <label for="spine-illegible"> the title is illegible</label><br>
+        <input type="checkbox" id="spine-bumped" name="spine-bumped" value="top or bottom is bumped/crushed" onchange="handleChange(this);">
+        <label for="spine-bumped"> the top or bottom is bumped/crushed</label><br>
+        <input type="checkbox" id="spine-cracked" name="spine-cracked" value="joint is cracked" onchange="handleChange(this);">
+        <label for="spine-cracked"> the joint is cracked (ie, separated from the main cover)</label>
+      </div>
+
+      <br style="clear: both;" />
+
+      <div id="end-papers" class="checkboxes">
+        <!--
+          The end papers – (just inside front and back cover boards)
+          Negative: contains writing, marks, former library stamps or card pockets, stained, former owner’s name in ink, old price stickers
+          Positive: Illustrated, contains map pocket with map intact
+        -->
+        <h2>End Papers</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="end-papers-illustrated" name="end-papers-illustrated" value="illustrated" onchange="handleChange(this);">
+        <label for="end-papers-illustrated"> illustrated</label><br>
+        <input type="checkbox" id="end-papers-map" name="end-papers-map" value="contains map pocket with map intact" onchange="handleChange(this);">
+        <label for="end-papers-illustrated"> contains map pocket with map intact</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="end-papers-writing" name="end-papers-writing" value="contains writing" onchange="handleChange(this);">
+        <label for="end-papers-writing"> writing or marks</label><br>
+        <input type="checkbox" id="end-papers-library" name="end-papers-library" value="former library stamps or card pockets" onchange="handleChange(this);">
+        <label for="end-papers-library"> former library stamps or card pockets</label><br>
+        <input type="checkbox" id="end-papers-stained" name="end-papers-stained" value="stained or foxing" onchange="handleChange(this);">
+        <label for="end-papers-stained"> stained or foxing</label><br>
+        <input type="checkbox" id="end-papers-owner-name" name="end-papers-owner-name" value="former owner’s name in ink" onchange="handleChange(this);">
+        <label for="end-papers-owner-name"> former owner’s name in ink</label><br>
+        <input type="checkbox" id="end-papers-price" name="end-papers-price" value="old price stickers" onchange="handleChange(this);">
+        <label for="end-papers-price"> old price stickers</label>
+      </div>
+
+      <div id="hinge" class="checkboxes">
+        <!--
+          The hinge – (inside between the paste-down end paper and the first fly leaf) 
+          Negative: If cracked or loose, this means that the cover is partially or fully separated from the
+          text block. If you find this, check the book carefully to see if any pages inside the text block
+          are also loose or missing. Particularly note older paperback books (and some inexpensively produced hardbacks)
+          that have used glue or staples instead of stitching to bind the pages together. Glue and staples will give way over
+          time and the pages will come loose.
+          Positive: tight with no separation
+        -->
+        <h2>The hinge</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="hinge-tight" name="hinge-tight" value="tight with no separation" onchange="handleChange(this);">
+        <label for="hinge-tight"> tight with no separation</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="hinge-cracked" name="hinge-cracked" value="cracked or loose" onchange="handleChange(this);">
+        <label for="hinge-cracked"> cracked or loose</label><br>
+        <input type="checkbox" id="hinge-glue" name="hinge-glue" value="glue or staples instead of stitching" onchange="handleChange(this);">
+        <label for="hinge-glue"> glue or staples instead of stitching</label><br>
+      </div>
+
+      <div id="binding" class="checkboxes">
+        <!--
+          The binding (hardbacks) – usually the cloth, or leather used to connect the cover boards 
+          Negative: Cocked (when book is standing on its base is it skewed or does it sit at right angles);
+          cracked, on the outside, with the cover boards unhinged or completely separated, frayed edges, stained, sun-damaged (faded)
+          Positive: Tight and square (the book is not slanted from pressure)
+        -->
+        <h2>The binding (hardbacks)</h2>
+        <p style="margin:0; color:green;"><b>The good</b></p>
+        <input type="checkbox" id="binding-tight" name="binding-tight" value="tight and square" onchange="handleChange(this);">
+        <label for="binding-tight"> tight and square</label><br>
+        <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
+        <input type="checkbox" id="binding-cocked" name="binding-cocked" value="cocked" onchange="handleChange(this);">
+        <label for="binding-cocked"> cocked (when the book is standing on its base, it's skewed)</label><br>
+        <input type="checkbox" id="binding-cracked" name="binding-cracked" value="cracked" onchange="handleChange(this);">
+        <label for="binding-cracked"> cracked</label><br>
+        <input type="checkbox" id="binding-unhinged" name="binding-unhinged" value="cover boards unhinged or completely separated" onchange="handleChange(this);">
+        <label for="binding-unhinged"> cover boards unhinged or completely separated</label><br>
+        <input type="checkbox" id="binding-frayed" name="binding-frayed" value="frayed edges" onchange="handleChange(this);">
+        <label for="binding-frayed"> frayed edges</label><br>
+        <input type="checkbox" id="binding-stained" name="binding-stained" value="stained" onchange="handleChange(this);">
+        <label for="binding-stained"> stained</label><br>
+        <input type="checkbox" id="binding-sun-damaged" name="binding-sun-damaged" value="sun-damaged (faded)" onchange="handleChange(this);">
+        <label for="binding-sun-damaged"> sun-damaged (faded)</label><br>
+      </div>
+
+      <br style="clear: both;" />
+
+      <h3>Other things to look for</h3>
+      <ul>
+        <li>
+          The title page – are there marks? Is there an author’s signature? (These can also be noted
+          or found on the end papers, or the fly leaf(s).
+        </li>
+        <li>
+          The copyright page –behind the title page-- this is where we carefully check the edition
+          of the book to find a comparable book to get pricing. This is also where you will find the ISBN
+          number (if it exists), although you can sometimes find the ISBN* with its barcode on the back cover.
+          Books printed before 1970 do not have ISBN numbers. 
+        </li>
+        <li>
+          The pages inside (the text block) - Maps and Illustrations: Note these in your description of
+          the book, especially if the illustrator is well known, or if there are special fold-out maps
+          either bound in with the text or in special map pockets on either the front or back covers.
+          Sometimes maps are removed from books, so a buyer may want to be assured that the map or maps are there.
+          Include the dimensions!
+        </li>
+      </ul>
+    </div>
   </body>
 </html>

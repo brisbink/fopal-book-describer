@@ -3,7 +3,14 @@
   <head>
     <style>
       body { font-family: Arial; }
-      td { height: 10px; width: 10px; background: #F0F0F0; }
+      td {
+        height: 10px;
+        width: 10px;
+        background: #F0F0F0;
+        font-size: 7px;
+        color: green;
+        text-align: center;
+      }
       table { display: inline; }
       #content {
         width: 700px;
@@ -2660,8 +2667,12 @@
         var startMillis = 1735718400000;
         var millis = Date.now();
         var num = Math.floor((millis - startMillis) / 1000 / 60 / 60 / 24);
+        var percent = Math.round((num - 19 + 1) * 100 / (1479 - 19 + 1));
         for (var i = 19; i <= num && i <= 1479; i++) {
           document.getElementById("day" + i).style.backgroundColor = "#AFE1AF";
+          if(i == num) {
+            document.getElementById("day" + i).innerHTML = percent;
+          }
         }
       }
       buildCalendar();

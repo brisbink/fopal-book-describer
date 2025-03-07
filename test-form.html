@@ -25,6 +25,8 @@
           "cover-embossed",
           "cover-gilt",
           "cover-leather",
+          "cover-illustration",
+          "cover-mylar",
           "cover-stains",
           "cover-bumped",
           "cover-shelf-wear",
@@ -55,6 +57,7 @@
           "end-papers-illustrated",
           "end-papers-map",
           "end-papers-writing",
+          "end-papers-inscription",
           "end-papers-library",
           "end-papers-stained",
           "end-papers-owner-name",
@@ -71,6 +74,7 @@
           "binding-tight",
           "binding-cocked",
           "binding-cracked",
+          "binding-loose",
           "binding-unhinged",
           "binding-frayed",
           "binding-stained",
@@ -167,6 +171,10 @@
         <label for="cover-gilt"> gilt title</label><br>
         <input type="checkbox" id="cover-leather" name="cover-leather" value="leather bound (full or quarter)" onchange="handleChange(this);">
         <label for="cover-leather"> leather bound (full or quarter)</label><br>
+        <input type="checkbox" id="cover-illustration" name="cover-illustration" value="paste down illustration on front cover" onchange="handleChange(this);">
+        <label for="cover-illustration"> paste down illustration on front cover</label><br>
+        <input type="checkbox" id="cover-mylar" name="cover-mylar" value="protected by mylar" onchange="handleChange(this);">
+        <label for="cover-mylar"> protected by mylar</label><br>
         <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
         <input type="checkbox" id="cover-stains" name="cover-stains" value="stains or marks" onchange="handleChange(this);">
         <label for="cover-stains"> stains or marks</label><br>
@@ -225,8 +233,8 @@
         <label for="spine-missing"> is torn or missing</label><br>
         <input type="checkbox" id="spine-illegible" name="spine-illegible" value="illegible" onchange="handleChange(this);">
         <label for="spine-illegible"> the title is illegible</label><br>
-        <input type="checkbox" id="spine-bumped" name="spine-bumped" value="top or bottom is bumped/crushed" onchange="handleChange(this);">
-        <label for="spine-bumped"> the top or bottom is bumped/crushed</label><br>
+        <input type="checkbox" id="spine-bumped" name="spine-bumped" value="top or bottom is bumped and frayed" onchange="handleChange(this);">
+        <label for="spine-bumped"> the top or bottom is bumped and frayed</label><br>
         <input type="checkbox" id="spine-cracked" name="spine-cracked" value="joint is cracked" onchange="handleChange(this);">
         <label for="spine-cracked"> the joint is cracked (ie, separated from the main cover)</label>
       </div>
@@ -245,6 +253,8 @@
         <label for="end-papers-illustrated"> illustrated</label><br>
         <input type="checkbox" id="end-papers-map" name="end-papers-map" value="contains map pocket with map intact" onchange="handleChange(this);">
         <label for="end-papers-illustrated"> contains map pocket with map intact</label><br>
+        <input type="checkbox" id="end-papers-inscription" name="end-papers-inscription" value="gift inscription dated ___" onchange="handleChange(this);">
+        <label for="end-papers-inscription"> gift inscription dated ___</label><br>
         <p style="margin:5px 0 0 0; color:red;"><b>The bad</b></p>
         <input type="checkbox" id="end-papers-writing" name="end-papers-writing" value="contains writing" onchange="handleChange(this);">
         <label for="end-papers-writing"> writing or marks</label><br>
@@ -295,6 +305,8 @@
         <label for="binding-cocked"> cocked (when the book is standing on its base, it's skewed)</label><br>
         <input type="checkbox" id="binding-cracked" name="binding-cracked" value="cracked" onchange="handleChange(this);">
         <label for="binding-cracked"> cracked</label><br>
+        <input type="checkbox" id="binding-loose" name="binding-loose" value="binding loose" onchange="handleChange(this);">
+        <label for="binding-loose"> binding loose</label><br>
         <input type="checkbox" id="binding-unhinged" name="binding-unhinged" value="cover boards unhinged or completely separated" onchange="handleChange(this);">
         <label for="binding-unhinged"> cover boards unhinged or completely separated</label><br>
         <input type="checkbox" id="binding-frayed" name="binding-frayed" value="frayed edges" onchange="handleChange(this);">
@@ -309,6 +321,9 @@
 
       <h3>Other things to look for</h3>
       <ul>
+        <li>
+          Any repairs to the book or to the interior pages, or any tears to any of the pages should be noted.
+        </li>
         <li>
           The title page – are there marks? Is there an author’s signature? (These can also be noted
           or found on the end papers, or the fly leaf(s).
